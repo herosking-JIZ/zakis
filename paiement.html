@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement - Centre de Formation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function validerPaiement() {
+            // Récupérer les valeurs du formulaire
+            var nom = document.getElementById("nom").value;
+            var prenom = document.getElementById("prenom").value;
+            var num = document.getElementById("num").value;
+            var email = document.getElementById("email").value;
+            var ville = document.getElementById("ville").value;
+            var niveau = document.getElementById("niveau").value;
+
+            // Générer le message préconçu
+            var message = "Bonjour, je m'appelle " + nom + " " + prenom + ", je suis au Burkina Faso précisément dans la ville de " + ville + ". ";
+            message += "J'ai le niveau : " + niveau + " et j'aimerais avoir plus d'informations sur le centre.";
+
+            // Encodage du message pour URL
+            var encodedMessage = encodeURIComponent(message);
+
+            // Le numéro WhatsApp du profil de destination (à remplacer par votre numéro)
+            var numeroWhatsApp = "+22657190894"; // Remplacez ce numéro par votre numéro WhatsApp
+
+            // Créer le lien WhatsApp
+            var whatsappLink = "https://wa.me/" + numeroWhatsApp + "?text=" + encodedMessage;
+
+            // Vérifier si l'utilisateur a WhatsApp installé
+            if (navigator.userAgent.match(/iPhone|Android/)) {
+                // Ouvrir WhatsApp avec le message préconçu
+                window.location.href = whatsappLink;
+            } else {
+                // Si l'utilisateur n'a pas WhatsApp, inviter à l'installer
+                alert("Il semble que vous n'ayez pas WhatsApp installé. Veuillez télécharger WhatsApp pour profiter de notre formation.");
+            }
+
+            return false; // Empêcher le formulaire d'envoyer les données par défaut
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Centre de Formation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="formations.html">Nos Formations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogue.html">Catalogue des Livres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="temoignages.html">Témoignages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="paiement.html">Paiement</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Paiement Form -->
+    <section class="my-5">
+        <div class="container">
+            <h2>Payer pour la Formation</h2>
+            <form onsubmit="return validerPaiement()">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="num" class="form-label">Numéro</label>
+                    <!-- Modification ici : Utilisation de type="number" et pattern pour accepter uniquement les chiffres -->
+                    <input type="number" class="form-control" id="num" required pattern="[0-9]+" title="Veuillez entrer uniquement des chiffres">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ville" class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="ville" required>
+                </div>
+                <div class="mb-3">
+                    <label for="niveau" class="form-label">Niveau d'étude</label>
+                    <!-- Sélection des niveaux d'études -->
+                    <select class="form-control" id="niveau" required>
+                        <option value="BEPC">BEPC</option>
+                        <option value="BAC A">BAC A</option>
+                        <option value="BAC D">BAC D</option>
+                        <option value="BAC C">BAC C</option>
+                        <option value="BAC E">BAC E</option>
+                        <option value="LICENCE">LICENCE</option>
+                        <option value="MASTER">MASTER</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="mode-paiement" class="form-label">Mode de paiement</label>
+                    <select class="form-control" id="mode-paiement">
+                        <option>Orange Money</option>
+                        <option>Moov Money</option>
+                        <option>Carte Visa</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Valider le paiement</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <p>&copy; 2024 Centre de Formation</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
